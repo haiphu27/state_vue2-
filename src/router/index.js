@@ -1,13 +1,21 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Layout from "@/Layout";
 
 Vue.use(Router)
 
 const constantsRouter=[
     {
         path: '/',
-        component:()=>import('@/views/Home/index'),
+        component:Layout,
+        children:[
+            {
+                path: '/',
+                component:()=>import('@/views/Home/index'),
+            }
+        ]
     }
+
 ]
 
 

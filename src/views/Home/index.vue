@@ -1,7 +1,6 @@
 <template>
     <div>
       <h1>this is home</h1>
-      <navbar/>
       <todos/>
       <status-bar/>
       <progress-bar/>
@@ -9,14 +8,13 @@
 </template>
 
 <script>
-import Navbar from'@/components/Navbar'
-import Todos from "@/components/Todos";
-import StatusBar from "@/components/StatusBar";
-import ProgressBar from "@/components/ProgressBar";
+import Todos from "@/views/Home/components/Todos";
+import StatusBar from "@/views/Home/components/StatusBar";
+import ProgressBar from "@/views/Home/components/ProgressBar";
 
 export default{
   name:'home',
-  components:{ProgressBar, StatusBar, Todos, Navbar}
+  components:{ProgressBar, StatusBar, Todos}
 }
 </script>
 

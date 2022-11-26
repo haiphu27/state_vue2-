@@ -18,7 +18,7 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
-import TodoForm from "@/components/TodoForm";
+import TodoForm from "@/views/Home/components/TodoForm";
 
 export default {
   name: 'Todos',
