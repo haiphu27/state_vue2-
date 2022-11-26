@@ -1,13 +1,13 @@
 <template>
 	<form @submit="onSubmit">
 		<input type="text" v-model="title" />
-		<input type="submit" value="Add" />
+		<input type="submit" value="Add" @click.prevent="onSubmit()" />
 	</form>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 }  from "uuid";
+import {mapActions} from "vuex";
 
 export default {
 	name: 'TodoForm',
@@ -17,17 +17,15 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(['addTodo']), // addTodo() === this.$store.dispatch('addTodo')
-		onSubmit(event) {
-			event.preventDefault()
-			// console.log(this.title)
-			this.addTodo({
-				id: uuidv4(),
-				title: this.title,
-				completed: false
-			})
-			this.title = ''
-		}
+     ...mapActions(['addJob']),
+      onSubmit() {
+        this.addJob({
+          id:uuidv4(),
+          title: this.title,
+          completed:false
+        })
+        this.title=''
+      }
 	}
 }
 </script>

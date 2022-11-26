@@ -1,63 +1,78 @@
 <template>
-	<div class="todo-list">
-		<ul v-if="auth.isAuthenticated" >
-			<li
-				v-for="todo in todos"
-				:key="todo.id"
-			>
-        {{todo.title}}
-			</li>
-		</ul>
+  <div class="todo-list">
+    <TodoForm v-if="isAuthenticated"/>
+    <ul v-if="isAuthenticated">
+      <li
+          v-for="todo in todos"
+          :key="todo.id"
+          :class="todo.completed?'completed':[]"
+      >
+        {{ todo.title }}
+        <input type="checkbox" :checked="todo.completed" @click="mark_completed(todo.id)">
+        <button @click="deleteJob(todo.id)">Delete</button>
+      </li>
+    </ul>
     <p v-else style="text-align: center"> Not Authenticated</p>
-	</div>
+  </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
+import TodoForm from "@/components/TodoForm";
+
 export default {
-	name: 'Todos',
-	components: {},
-  computed:mapState(['todos','auth'])
+  name: 'Todos',
+  components: {TodoForm},
+  created() {
+    this.getJob();
+  },
+  computed:{
+    ...mapGetters(['isAuthenticated','todos'])
+  },
+  methods: {
+    ...mapActions(['deleteJob','mark_completed','getJob'])
+  }
 }
 </script>
 
 <style>
 .todo-list ul {
-	padding: 0 10px 10px 10px;
-	list-style-type: none;
+  padding: 0 10px 10px 10px;
+  list-style-type: none;
 }
 
 .todo-list li {
-	padding: 10px;
-	cursor: pointer;
-	margin: 10px 0;
-	border-radius: 4px;
-	background: rgb(240, 240, 240);
-	color: black;
+  padding: 10px;
+  cursor: pointer;
+  margin: 10px 0;
+  border-radius: 4px;
+  background: rgb(240, 240, 240);
+  color: black;
 }
 
 .todo-list li input[type='checkbox'] {
-	-ms-transform: scale(2); /* IE */
-	-moz-transform: scale(2); /* FF */
-	-webkit-transform: scale(2); /* Safari and Chrome */
-	-o-transform: scale(2); /* Opera */
-	transform: scale(2);
-	padding: 10px;
-	float: right;
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+  padding: 10px;
+  float: right;
 }
 
 .todo-list li.completed {
-	background: rgb(119, 218, 243);
+  background: rgb(119, 218, 243);
 }
 
 .todo-list li button {
-	float: right;
-	margin-right: 20px;
+  float: right;
+  margin-right: 20px;
+  border-radius: 3px;
 }
 
 .todo-list li button:hover {
-	cursor: pointer;
-	background: red;
-	color: white;
+  cursor: pointer;
+  background: #e79898;
+  color: red;
 }
 </style>

@@ -1,21 +1,25 @@
 import Vue from 'vue';
 import Vuex from 'vuex'
 
+import getters from "./getter";
+
 Vue.use(Vuex)
 
-const storeData={
-	state: {
-		todos: [
-			{id:1,title: 'Viec 1',completed:true},
-			{id:2,title: 'Viec 2',completed:true},
-			{id:3,title: 'Viec 3',completed:false}
-		],
-		auth:{
-			isAuthenticated: false
-		}
-	}
-}
+const modulesFiles = require.context('./modules', true, /\.js$/)
 
-const store=new Vuex.Store(storeData)
+// you do not need `import app from './modules/app'`
+// it will auto require all vuex module from modules file
+const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+    // set './app.js' => 'app'
+    const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+    const value = modulesFiles(modulePath)
+    modules[moduleName] = value.default
+    return modules
+}, {})
+
+const store = new Vuex.Store({
+    modules,
+    getters
+})
 
 export default store

@@ -15,7 +15,7 @@ import ProgressBar from "@/components/ProgressBar";
 
 export default {
 	name: 'App',
-	components: {ProgressBar, StatusBar, Todos, Navbar }
+	components: { ProgressBar, StatusBar, Todos, Navbar }
 }
 </script>
 
